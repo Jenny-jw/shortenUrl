@@ -36,3 +36,6 @@ router.post("/shorten", async (req, res) => {
 });
 
 // GET /:shortId
+
+const urlsRouter = router;
+export default urlsRouter;
