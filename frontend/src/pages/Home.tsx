@@ -1,5 +1,11 @@
+import InputUrl from "../components/InputUrl";
+
 const Home = () => {
-  return <p>Input the URL you wanna shorten:</p>;
+  return (
+    <>
+      <InputUrl />
+    </>
+  );
 };
 
 export default Home;
