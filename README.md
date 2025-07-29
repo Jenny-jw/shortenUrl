@@ -1,3 +1,11 @@
+## Start MongoDB service
+
+> Data Storage and Query
+
+```
+mongod --dbpath ~/shortenUrl/data
+```
+
 ## Start express in another terminal
 
 ```
