@@ -4,8 +4,8 @@ import Url from "../models/Url.js";
 
 const router = express.Router();
 // hash, random string, base62
-const hashShorten = (originalUrl) => {
-  const hash = crypto.createHash("sha256").update(originalUrl).digest("hex");
+const hashShorten = (originUrl) => {
+  const hash = crypto.createHash("sha256").update(originUrl).digest("hex");
   return hash.slice(0, 8);
 };
 const randomString = (length = 8) => {
@@ -22,7 +22,7 @@ const randomString = (length = 8) => {
 router.post("/shorten", async (req, res) => {
   try {
     const { originUrl } = req.body;
-    // 驗證 originalUrl 合法性
+    // 驗證 originUrl 合法性
     // 檢查是否已存在相同紀錄
     // 若無，產生一組短碼
     const shortenedUrl = hashShorten(originUrl);
@@ -35,7 +35,27 @@ router.post("/shorten", async (req, res) => {
   }
 });
 
-// GET /:shortId
+// GET /api/urls/:shortenedUrl, for searching origin URL
+router.get("/:shortenedUrl", async (req, res) => {
+  try {
+    const url = await Url.findOne({ shortenedUrl: req.params.shortenedUrl });
+    if (!url) return res.status(404).json({ error: "Canoot find the url" });
+    res.json({ originUrl: url.originUrl });
+  } catch (err) {
+    res.status(500).json({ error: "Server error." });
+  }
+});
+
+// for redirecting
+// router.get("/tako/:shortenedUrl", async (req, res) => {
+//   try {
+//     const url = await Url.findOne({ shortenedUrl: req.params.shortenedUrl });
+//     if (!url) return res.status(404).json({ error: "Canoot find the url" });
+//     res.redirect(url.originUrl);
+//   } catch (err) {
+//     res.status(500).json({ error: "Server error." });
+//   }
+// });
 
 const urlsRouter = router;
 export default urlsRouter;
