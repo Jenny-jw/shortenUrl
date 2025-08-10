@@ -46,16 +46,16 @@ router.get("/:shortenedUrl", async (req, res) => {
   }
 });
 
-// for redirecting
-// router.get("/tako/:shortenedUrl", async (req, res) => {
-//   try {
-//     const url = await Url.findOne({ shortenedUrl: req.params.shortenedUrl });
-//     if (!url) return res.status(404).json({ error: "Canoot find the url" });
-//     res.redirect(url.originUrl);
-//   } catch (err) {
-//     res.status(500).json({ error: "Server error." });
-//   }
-// });
+// GET /api/urls/redirect/:shortenedUrl, for redirecting
+router.get("/redirect/:shortenedUrl", async (req, res) => {
+  try {
+    const url = await Url.findOne({ shortenedUrl: req.params.shortenedUrl });
+    if (!url) return res.status(404).json({ error: "Canoot find the url" });
+    res.redirect(url.originUrl);
+  } catch (err) {
+    res.status(500).json({ error: "Server error." });
+  }
+});
 
 const urlsRouter = router;
 export default urlsRouter;
