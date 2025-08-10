@@ -1,0 +1,6 @@
+.container {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem; /* 1rem = 16px = gap-4*/
+  padding: 8px;
+}

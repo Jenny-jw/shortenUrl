@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import common from "../styles/Common.module.css";
 
 const InputUrl = () => {
   const [originUrl, setOriginUrl] = useState<string>("");
@@ -20,7 +21,7 @@ const InputUrl = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={`${common.container}`}>
       <p>Input the URL you wanna shorten:</p>
       <input
         value={originUrl}
