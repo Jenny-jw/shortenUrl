@@ -22,11 +22,7 @@ const randomString = (length = 8) => {
 router.post("/shorten", async (req, res) => {
   try {
     const { originUrl } = req.body;
-    // 驗證 originUrl 合法性
-    // 檢查是否已存在相同紀錄
-    // 若無，產生一組短碼
     const shortenedUrl = hashShorten(originUrl);
-    // 儲存到資料庫
     const url = new Url({ originUrl, shortenedUrl });
     await url.save();
     res.json(url);
